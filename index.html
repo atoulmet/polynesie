@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voyage en Polynésie française</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>Polynésie française</h1>
+  </header>
+
+  <main>
+    <section class="overview">
+      <div id="map-overview"></div>
+    </section>
+
+    <p style="text-align:center;margin:0 0 1.25rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+      <a href="itineraire.html" style="display:inline-block;background:linear-gradient(135deg,var(--ocean),var(--lagoon));color:white;padding:0.6rem 1.2rem;border-radius:8px;font-weight:600;font-size:0.92rem;box-shadow:0 1px 3px rgba(10,110,140,0.2);">🗺️ Voir l'itinéraire complet</a>
+      <a href="transports.html" style="display:inline-block;background:white;color:var(--ocean);padding:0.6rem 1.2rem;border-radius:8px;font-weight:600;font-size:0.92rem;box-shadow:0 1px 3px rgba(10,110,140,0.1);">🚗 ✈️ ⛵ Récap transports</a>
+    </p>
+
+    <div class="grid">
+      <a href="iles-du-vent.html" class="archipelago">
+        <div id="map-vent" class="map"></div>
+        <div class="body">
+          <h2>Îles du Vent</h2>
+          <p class="subtitle">Archipel de la Société</p>
+          <ul>
+            <li><span class="dot"></span>Tahiti</li>
+            <li><span class="dot"></span>Moorea</li>
+          </ul>
+          <div class="see-more">Voir le détail →</div>
+        </div>
+      </a>
+
+      <a href="iles-sous-le-vent.html" class="archipelago">
+        <div id="map-sousvent" class="map"></div>
+        <div class="body">
+          <h2>Îles Sous-le-Vent</h2>
+          <p class="subtitle">Archipel de la Société</p>
+          <ul>
+            <li><span class="dot"></span>Huahine</li>
+            <li><span class="dot"></span>Raiatea</li>
+            <li><span class="dot"></span>Taha'a</li>
+            <li><span class="dot"></span>Maupiti</li>
+          </ul>
+          <div class="see-more">Voir le détail →</div>
+        </div>
+      </a>
+
+      <a href="tuamotu.html" class="archipelago">
+        <div id="map-tuamotu" class="map"></div>
+        <div class="body">
+          <h2>Tuamotu</h2>
+          <p class="subtitle">Atolls coralliens</p>
+          <ul>
+            <li><span class="dot"></span>Rangiroa</li>
+            <li><span class="dot"></span>Fakarava</li>
+            <li><span class="dot"></span>Tikehau<span class="tentative">à confirmer</span></li>
+          </ul>
+          <div class="see-more">Voir le détail →</div>
+        </div>
+      </a>
+
+      <a href="marquises.html" class="archipelago">
+        <div id="map-marquises" class="map"></div>
+        <div class="body">
+          <h2>Marquises</h2>
+          <p class="subtitle">Archipel volcanique</p>
+          <ul>
+            <li><span class="dot"></span>Nuku Hiva</li>
+            <li><span class="dot"></span>Hiva Oa</li>
+            <li><span class="dot"></span>Ua Pou<span class="tentative">à confirmer</span></li>
+          </ul>
+          <div class="see-more">Voir le détail →</div>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer>12 îles · 4 archipels</footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const tile = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const attribution = '&copy; OpenStreetMap';
+
+    function makeMiniMap(id, islands, padding = 0.3) {
+      const map = L.map(id, {
+        zoomControl: false, attributionControl: false,
+        dragging: false, scrollWheelZoom: false, doubleClickZoom: false,
+        touchZoom: false, boxZoom: false, keyboard: false,
+      });
+      L.tileLayer(tile, { attribution }).addTo(map);
+      const markers = islands.map(([name, lat, lon]) => L.circleMarker([lat, lon], {
+        radius: 5, color: '#0a6e8c', weight: 2,
+        fillColor: '#2ba6c4', fillOpacity: 0.9,
+      }).bindTooltip(name, { direction: 'top' }).addTo(map));
+      if (islands.length === 1) map.setView([islands[0][1], islands[0][2]], 9);
+      else map.fitBounds(L.featureGroup(markers).getBounds().pad(padding));
+    }
+
+    // Overview map
+    const overview = L.map('map-overview', { scrollWheelZoom: false });
+    L.tileLayer(tile, { attribution }).addTo(overview);
+
+    const archipelagos = [
+      { name: 'Marquises', color: '#c0392b', center: [-9.35, -139.7],
+        islands: [['Nuku Hiva', -8.8667, -140.1], ['Hiva Oa', -9.7833, -139.0333], ['Ua Pou', -9.4, -140.0833]] },
+      { name: 'Tuamotu', color: '#e67e22', center: [-15.5, -146.5],
+        islands: [['Rangiroa', -15.1333, -147.65], ['Fakarava', -16.3333, -145.6167], ['Tikehau', -15, -148.1667]] },
+      { name: 'Îles du Vent', color: '#2ba6c4', center: [-17.6, -149.6],
+        islands: [['Tahiti', -17.6797, -149.4068], ['Moorea', -17.5388, -149.8295]] },
+      { name: 'Îles Sous-le-Vent', color: '#0a6e8c', center: [-16.3, -152.4],
+        islands: [['Huahine', -16.7333, -151.0167], ['Raiatea', -16.833, -151.45], ["Taha'a", -16.6167, -151.4833], ['Maupiti', -16.4344, -152.2522]] },
+    ];
+
+    const allMarkers = [];
+    archipelagos.forEach(arch => {
+      arch.islands.forEach(([name, lat, lon]) => {
+        const m = L.circleMarker([lat, lon], {
+          radius: 6, color: arch.color, weight: 2,
+          fillColor: arch.color, fillOpacity: 0.85,
+        }).bindTooltip(`<strong>${name}</strong><br><span style="color:${arch.color}">${arch.name}</span>`, { direction: 'top' }).addTo(overview);
+        allMarkers.push(m);
+      });
+      L.marker(arch.center, {
+        icon: L.divIcon({
+          className: '',
+          html: `<div class="archipelago-label" style="border-color:${arch.color};color:${arch.color}">${arch.name}</div>`,
+          iconSize: null, iconAnchor: [0, 0],
+        }),
+        interactive: false,
+      }).addTo(overview);
+    });
+    overview.fitBounds(L.featureGroup(allMarkers).getBounds().pad(0.15));
+
+    makeMiniMap('map-vent', [['Tahiti', -17.6797, -149.4068], ['Moorea', -17.5388, -149.8295]], 0.6);
+    makeMiniMap('map-sousvent', [['Huahine', -16.7333, -151.0167], ['Raiatea', -16.833, -151.45], ["Taha'a", -16.6167, -151.4833], ['Maupiti', -16.4344, -152.2522]], 0.3);
+    makeMiniMap('map-tuamotu', [['Rangiroa', -15.1333, -147.65], ['Fakarava', -16.3333, -145.6167], ['Tikehau', -15, -148.1667]], 0.3);
+    makeMiniMap('map-marquises', [['Nuku Hiva', -8.8667, -140.1], ['Hiva Oa', -9.7833, -139.0333], ['Ua Pou', -9.4, -140.0833]], 0.4);
+  </script>
+</body>
+</html>

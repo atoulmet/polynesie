@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Îles du Vent — Polynésie</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <a href="index.html" class="back-link">← Retour</a>
+    <h1>Îles du Vent</h1>
+    <p>Archipel de la Société · 2 îles</p>
+  </header>
+
+  <main>
+    <section class="overview">
+      <div id="map-archipelago"></div>
+    </section>
+
+    <article class="island">
+      <div class="island-head">
+        <h2>Tahiti</h2>
+        <span class="island-size">1 045 km² · ~60 km de long</span>
+      </div>
+      <div class="info-row">
+        <div class="label">Transport sur place</div>
+        <div class="value"><span class="badge car">Voiture</span>Indispensable. L'île est grande et montagneuse ; la route de ceinture fait ~115 km.</div>
+      </div>
+      <div class="info-row">
+        <div class="label">Accès</div>
+        <div class="value">
+          <ul>
+            <li><span class="badge plane">Avion</span><strong>Point d'entrée principal</strong> de la Polynésie — aéroport international de Faa'a (PPT). Vols directs depuis Paris (~22h via LAX ou SFO) ou Los Angeles (~8h).</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="island">
+      <div class="island-head">
+        <h2>Moorea</h2>
+        <span class="island-size">134 km² · tour ~60 km</span>
+      </div>
+      <div class="info-row">
+        <div class="label">Transport sur place</div>
+        <div class="value"><span class="badge car">Voiture</span><span class="badge scooter">Scooter</span>Recommandé pour faire le tour de l'île. Le vélo est jouable pour de petits trajets mais la route principale est fréquentée.</div>
+      </div>
+      <div class="info-row">
+        <div class="label">Accès depuis Tahiti</div>
+        <div class="value">
+          <ul>
+            <li><span class="badge boat">Bateau</span>Ferry Aremiti ou Terevau depuis Papeete — <strong>30 à 45 min</strong>. Plusieurs rotations/jour, option la plus pratique.</li>
+            <li><span class="badge plane">Avion</span>Air Tahiti / Air Moorea — vol de <strong>~10-15 min</strong>, pittoresque mais cher pour la distance.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer><a href="index.html">← Retour à la liste</a></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map-archipelago', { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
+    const islands = [['Tahiti', -17.6797, -149.4068], ['Moorea', -17.5388, -149.8295]];
+    const markers = islands.map(([name, lat, lon]) => L.circleMarker([lat, lon], {
+      radius: 8, color: '#0a6e8c', weight: 2, fillColor: '#2ba6c4', fillOpacity: 0.9,
+    }).bindTooltip(name, { permanent: true, direction: 'top', offset: [0, -8] }).addTo(map));
+    map.fitBounds(L.featureGroup(markers).getBounds().pad(0.6));
+  </script>
+</body>
+</html>

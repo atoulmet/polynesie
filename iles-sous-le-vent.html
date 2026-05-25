@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Îles Sous-le-Vent — Polynésie</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <a href="index.html" class="back-link">← Retour</a>
+    <h1>Îles Sous-le-Vent</h1>
+    <p>Archipel de la Société · 4 îles</p>
+  </header>
+
+  <main>
+    <section class="overview">
+      <div id="map-archipelago"></div>
+    </section>
+
+    <article class="island">
+      <div class="island-head">
+        <h2>Huahine</h2>
+        <span class="island-size">~75 km² · 2 îles reliées par un pont</span>
+      </div>
+      <div class="info-row">
+        <div class="label">Transport sur place</div>
+        <div class="value"><span class="badge car">Voiture</span><span class="badge scooter">Scooter</span>Recommandé. Tour des deux îles (Nui + Iti) ~60 km. Routes peu fréquentées, paysage très vert.</div>
+      </div>
+      <div class="info-row">
+        <div class="label">Accès</div>
+        <div class="value">
+          <ul>
+            <li><span class="badge plane">Avion</span>Air Tahiti depuis Papeete (PPT → HUH) — <strong>~40 min</strong>. Plusieurs vols/jour. Premier arrêt naturel après Tahiti dans les Sous-le-Vent.</li>
+            <li><span class="badge boat">Bateau</span>Cargo Hawaiki Nui depuis Papeete — première escale (~9h de nuit). Économique.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="island">
+      <div class="island-head">
+        <h2>Raiatea</h2>
+        <span class="island-size">167 km² · tour ~98 km</span>
+      </div>
+      <div class="info-row">
+        <div class="label">Transport sur place</div>
+        <div class="value"><span class="badge car">Voiture</span>Nécessaire. Île montagneuse avec une route côtière unique ; les sites comme Taputapuātea (UNESCO) sont éloignés du centre d'Uturoa.</div>
+      </div>
+      <div class="info-row">
+        <div class="label">Accès depuis Tahiti</div>
+        <div class="value">
+          <ul>
+            <li><span class="badge plane">Avion</span>Air Tahiti depuis Papeete — <strong>~45 min</strong>. Plusieurs vols par jour.</li>
+            <li><span class="badge boat">Bateau</span>Cargo Hawaiki Nui depuis Papeete — <strong>~16-18h de nuit</strong>. Économique, ambiance locale.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="island">
+      <div class="island-head">
+        <h2>Taha'a</h2>
+        <span class="island-size">88 km² · tour ~70 km</span>
+      </div>
+      <div class="info-row">
+        <div class="label">Transport sur place</div>
+        <div class="value"><span class="badge car">Voiture</span><span class="badge scooter">Scooter</span>Recommandé. Pas de transport public. Beaucoup d'hôtels sur motus (îlots) — déplacement en navette bateau interne.</div>
+      </div>
+      <div class="info-row">
+        <div class="label">Accès</div>
+        <div class="value">
+          <ul>
+            <li><span class="badge boat">Bateau</span><strong>Pas d'aéroport.</strong> Navette depuis Raiatea (lagon partagé) — <strong>~30 min</strong> selon le quai d'arrivée. Transferts privés via les pensions.</li>
+            <li><span class="badge plane">Avion</span>Indirect : vol Tahiti → Raiatea (~45 min), puis bateau.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    <article class="island">
+      <div class="island-head">
+        <h2>Maupiti</h2>
+        <span class="island-size">~11 km² (île principale) · ~38 km² avec motus</span>
+      </div>
+      <div class="info-row">
+        <div class="label">Transport sur place</div>
+        <div class="value"><span class="badge bike">Vélo</span><span class="badge scooter">Scooter</span>Suffit largement. Route de ceinture ~10 km, totalement plate. Ambiance préservée, pas d'hôtel de luxe.</div>
+      </div>
+      <div class="info-row">
+        <div class="label">Accès</div>
+        <div class="value">
+          <ul>
+            <li><span class="badge plane">Avion</span>Air Tahiti depuis Papeete (PPT → MAU) — <strong>~50 min</strong>. 3-4 vols/semaine seulement. Depuis Raiatea — <strong>~20 min</strong>.</li>
+            <li><span class="badge boat">Bateau</span>La passe est étroite et houleuse — pas de cargo régulier pour touristes. Possibles transferts privés depuis Bora Bora ou Raiatea via opérateurs locaux.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer><a href="index.html">← Retour à la liste</a></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map-archipelago', { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
+    const islands = [['Huahine', -16.7333, -151.0167], ['Raiatea', -16.833, -151.45], ["Taha'a", -16.6167, -151.4833], ['Maupiti', -16.4344, -152.2522]];
+    const markers = islands.map(([name, lat, lon]) => L.circleMarker([lat, lon], {
+      radius: 8, color: '#0a6e8c', weight: 2, fillColor: '#2ba6c4', fillOpacity: 0.9,
+    }).bindTooltip(name, { permanent: true, direction: 'top', offset: [0, -8] }).addTo(map));
+    map.fitBounds(L.featureGroup(markers).getBounds().pad(0.3));
+  </script>
+</body>
+</html>
