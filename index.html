@@ -43,7 +43,6 @@
           <p class="subtitle">Archipel de la Société</p>
           <ul>
             <li><span class="dot"></span>Huahine</li>
-            <li><span class="dot"></span>Taha'a</li>
             <li><span class="dot"></span>Maupiti</li>
           </ul>
           <div class="see-more">Voir le détail →</div>
@@ -78,7 +77,7 @@
     </div>
   </main>
 
-  <footer>9 îles · 4 archipels</footer>
+  <footer>8 îles · 4 archipels</footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -112,7 +111,7 @@
       { name: 'Îles du Vent', color: '#2ba6c4', center: [-17.6, -149.6],
         islands: [['Tahiti', -17.6797, -149.4068], ['Moorea', -17.5388, -149.8295]] },
       { name: 'Îles Sous-le-Vent', color: '#0a6e8c', center: [-16.3, -152.4],
-        islands: [['Huahine', -16.7333, -151.0167], ["Taha'a", -16.6167, -151.4833], ['Maupiti', -16.4344, -152.2522]] },
+        islands: [['Huahine', -16.7333, -151.0167], ['Maupiti', -16.4344, -152.2522]] },
     ];
 
     const allMarkers = [];
@@ -136,7 +135,7 @@
     overview.fitBounds(L.featureGroup(allMarkers).getBounds().pad(0.15));
 
     makeMiniMap('map-vent', [['Tahiti', -17.6797, -149.4068], ['Moorea', -17.5388, -149.8295]], 0.6);
-    makeMiniMap('map-sousvent', [['Huahine', -16.7333, -151.0167], ["Taha'a", -16.6167, -151.4833], ['Maupiti', -16.4344, -152.2522]], 0.3);
+    makeMiniMap('map-sousvent', [['Huahine', -16.7333, -151.0167], ['Maupiti', -16.4344, -152.2522]], 0.3);
     makeMiniMap('map-tuamotu', [['Fakarava', -16.3333, -145.6167]], 0.3);
     makeMiniMap('map-marquises', [['Nuku Hiva', -8.8667, -140.1], ['Hiva Oa', -9.7833, -139.0333], ['Ua Pou', -9.4, -140.0833]], 0.4);
   </script>

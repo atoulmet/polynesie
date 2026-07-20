@@ -11,13 +11,25 @@
   <header class="hero">
     <a href="index.html" class="back-link">← Retour</a>
     <h1>Îles Sous-le-Vent</h1>
-    <p>Archipel de la Société · 4 îles</p>
+    <p>Archipel de la Société · 3 îles</p>
   </header>
 
   <main>
     <section class="overview">
       <div id="map-archipelago"></div>
     </section>
+
+    <label class="transfers-toggle">
+      <input type="checkbox" id="toggle-transfers" checked>
+      Afficher les transferts d'une île à l'autre (ferry Apetahi Express)
+    </label>
+
+    <div class="transfer">
+      <span class="route">⛴️ Papeete → Huahine</span>
+      <span class="days">mar · ven · dim</span>
+      <span class="sched"><strong>06:30 → 09:40</strong> (~3h10)</span>
+      <span class="note-line">Pas de départ Papeete le mercredi. Horaires complets sur la page <a href="transports.html" style="text-decoration:underline;">Transports</a>.</span>
+    </div>
 
     <article class="island">
       <div class="island-head">
@@ -32,12 +44,21 @@
         <div class="label">Accès</div>
         <div class="value">
           <ul>
-            <li><span class="badge plane">Avion</span>Air Tahiti depuis Papeete (PPT → HUH) — <strong>~40 min</strong>. Plusieurs vols/jour. Premier arrêt naturel après Tahiti dans les Sous-le-Vent.</li>
-            <li><span class="badge boat">Bateau</span>Cargo Hawaiki Nui depuis Papeete — première escale (~9h de nuit). Économique.</li>
+            <li><span class="badge boat">Ferry</span><strong>Option choisie :</strong> Apetahi Express depuis Papeete — mar·ven·dim <strong>06:30 → 09:40</strong> (~3h10). Économique.</li>
+            <li><span class="badge plane">Avion</span>Air Tahiti depuis Papeete (PPT → HUH) — <strong>~40 min</strong>. Plusieurs vols/jour.</li>
+            <li><span class="badge boat">Bateau</span>Cargo Hawaiki Nui depuis Papeete — première escale (~9h de nuit).</li>
           </ul>
         </div>
       </div>
     </article>
+
+    <div class="transfer">
+      <span class="route">⛴️ Huahine → Raiatea</span>
+      <span class="days">mar · ven · dim</span>
+      <span class="sched"><strong>10:00 → 11:00</strong></span>
+      <span class="days">mercredi</span>
+      <span class="sched"><strong>11:30 → 12:30</strong></span>
+    </div>
 
     <article class="island">
       <div class="island-head">
@@ -52,6 +73,7 @@
         <div class="label">Accès depuis Tahiti</div>
         <div class="value">
           <ul>
+            <li><span class="badge boat">Ferry</span><strong>Option choisie :</strong> Apetahi Express depuis Papeete — mar·ven·dim <strong>06:30 → 11:00</strong> (~4h30). Escale à Huahine.</li>
             <li><span class="badge plane">Avion</span>Air Tahiti depuis Papeete — <strong>~45 min</strong>. Plusieurs vols par jour.</li>
             <li><span class="badge boat">Bateau</span>Cargo Hawaiki Nui depuis Papeete — <strong>~16-18h de nuit</strong>. Économique, ambiance locale.</li>
           </ul>
@@ -59,25 +81,14 @@
       </div>
     </article>
 
-    <article class="island">
-      <div class="island-head">
-        <h2>Taha'a</h2>
-        <span class="island-size">88 km² · tour ~70 km</span>
-      </div>
-      <div class="info-row">
-        <div class="label">Transport sur place</div>
-        <div class="value"><span class="badge car">Voiture</span><span class="badge scooter">Scooter</span>Recommandé. Pas de transport public. Beaucoup d'hôtels sur motus (îlots) — déplacement en navette bateau interne.</div>
-      </div>
-      <div class="info-row">
-        <div class="label">Accès</div>
-        <div class="value">
-          <ul>
-            <li><span class="badge boat">Bateau</span><strong>Pas d'aéroport.</strong> Navette depuis Raiatea (lagon partagé) — <strong>~30 min</strong> selon le quai d'arrivée. Transferts privés via les pensions.</li>
-            <li><span class="badge plane">Avion</span>Indirect : vol Tahiti → Raiatea (~45 min), puis bateau.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
+    <div class="transfer">
+      <span class="route">⛴️ Raiatea → Maupiti</span>
+      <span class="days">mar · ven · dim</span>
+      <span class="sched"><strong>11:20 → 14:55</strong></span>
+      <span class="days">mercredi</span>
+      <span class="sched"><strong>13:00 → 16:30</strong></span>
+      <span class="note-line">Avec escales à Taha'a et Bora Bora.</span>
+    </div>
     <article class="island">
       <div class="island-head">
         <h2>Maupiti</h2>
@@ -91,12 +102,19 @@
         <div class="label">Accès</div>
         <div class="value">
           <ul>
+            <li><span class="badge boat">Ferry</span><strong>Option choisie :</strong> Apetahi Express — terminus de la ligne. Depuis Huahine mar·ven·dim <strong>10:00 → 14:55</strong> (escales Raiatea, Taha'a, Bora Bora). Retour vers Papeete lun·jeu·sam <strong>06:30 → 15:00</strong>.</li>
             <li><span class="badge plane">Avion</span>Air Tahiti depuis Papeete (PPT → MAU) — <strong>~50 min</strong>. 3-4 vols/semaine seulement. Depuis Raiatea — <strong>~20 min</strong>.</li>
-            <li><span class="badge boat">Bateau</span>La passe est étroite et houleuse — pas de cargo régulier pour touristes. Possibles transferts privés depuis Bora Bora ou Raiatea via opérateurs locaux.</li>
           </ul>
         </div>
       </div>
     </article>
+
+    <div class="transfer">
+      <span class="route">⛴️ Retour Maupiti → Papeete</span>
+      <span class="days">lun · jeu · sam</span>
+      <span class="sched"><strong>06:30 → 15:00</strong></span>
+      <span class="note-line">Le mercredi, le retour s'arrête à Huahine (06:30 → 11:15) — pas de liaison vers Papeete ce jour-là.</span>
+    </div>
   </main>
 
   <footer><a href="index.html">← Retour à la liste</a></footer>
@@ -105,11 +123,25 @@
   <script>
     const map = L.map('map-archipelago', { scrollWheelZoom: false });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
-    const islands = [['Huahine', -16.7333, -151.0167], ['Raiatea', -16.833, -151.45], ["Taha'a", -16.6167, -151.4833], ['Maupiti', -16.4344, -152.2522]];
+    const islands = [['Huahine', -16.7333, -151.0167], ['Raiatea', -16.833, -151.45], ['Maupiti', -16.4344, -152.2522]];
     const markers = islands.map(([name, lat, lon]) => L.circleMarker([lat, lon], {
       radius: 8, color: '#0a6e8c', weight: 2, fillColor: '#2ba6c4', fillOpacity: 0.9,
     }).bindTooltip(name, { permanent: true, direction: 'top', offset: [0, -8] }).addTo(map));
     map.fitBounds(L.featureGroup(markers).getBounds().pad(0.3));
+
+    // Toggle transferts inter-îles (partagé entre les pages via localStorage)
+    const TRANSFERS_KEY = 'polynesie.showTransfers';
+    const toggle = document.getElementById('toggle-transfers');
+    const savedToggle = localStorage.getItem(TRANSFERS_KEY);
+    toggle.checked = savedToggle === null ? true : savedToggle === '1';
+    function applyToggle() {
+      document.body.classList.toggle('hide-transfers', !toggle.checked);
+    }
+    toggle.addEventListener('change', () => {
+      localStorage.setItem(TRANSFERS_KEY, toggle.checked ? '1' : '0');
+      applyToggle();
+    });
+    applyToggle();
   </script>
 </body>
 </html>
