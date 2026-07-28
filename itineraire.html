@@ -68,6 +68,14 @@
     .step-num.tuamotu { background: #e67e22; }
     .step-num.marquises { background: #c0392b; }
     .step-num.return { background: var(--ink); }
+    .step-num.travel { background: white; font-size: 0.9rem; }
+    .step.travel-step {
+      background: #eef8fb;
+      border: 2px dashed var(--lagoon);
+      box-shadow: none;
+    }
+    .step-archi.travel { background: #d3edf3; color: #0a6e8c; }
+    body.hide-travel .travel-step { display: none; }
     .step-head {
       display: flex;
       align-items: baseline;
@@ -107,6 +115,19 @@
     .step-transport .arrow {
       color: var(--muted);
       font-weight: 600;
+      flex-shrink: 0;
+    }
+    .leg-time {
+      margin-left: auto;
+      align-self: center;
+      background: white;
+      border: 1px solid var(--lagoon);
+      color: var(--ocean);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 10px;
+      white-space: nowrap;
       flex-shrink: 0;
     }
     .step-note {
@@ -239,6 +260,11 @@
       <div id="map-route"></div>
     </section>
 
+    <label class="transfers-toggle">
+      <input type="checkbox" id="toggle-travel" checked>
+      Afficher les temps de trajet comme des étapes
+    </label>
+
     <div class="timeline">
 
       <div class="step" data-step="1">
@@ -248,7 +274,7 @@
           <span class="step-archi vent">Îles du Vent</span>
         </div>
         <p class="step-note">Atterrissage international à Papeete. Acclimatation, formalités, première découverte.</p>
-        <div class="step-transport"><span class="arrow">→ Arrivée :</span><span>Vol international (PPT) — porte d'entrée de la Polynésie.</span></div>
+        <div class="step-transport"><span class="arrow">→ Arrivée :</span><span>Vol international (PPT) — porte d'entrée de la Polynésie.</span><span class="leg-time">✈️ ~22h depuis Paris</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
       </div>
 
@@ -259,8 +285,18 @@
           <span class="step-archi vent">Îles du Vent</span>
         </div>
         <p class="step-note">Île jumelle de Tahiti, plages et baies spectaculaires. Idéal pour démarrer en douceur.</p>
-        <div class="step-transport"><span class="arrow">Tahiti →</span><span>Ferry Aremiti / Terevau depuis Papeete — <strong>30-45 min</strong>.</span></div>
+        <div class="step-transport"><span class="arrow">Tahiti →</span><span>Ferry Aremiti / Terevau depuis Papeete — <strong>30-45 min</strong>.</span><span class="leg-time">⛴️ 30-45 min</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
+      </div>
+
+      <div class="step travel-step">
+        <div class="step-num travel">⛴️</div>
+        <div class="step-head">
+          <h3>Trajet Moorea → Huahine <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ⛴️ ~45 min + 3h10</span>
+        </div>
+        <p class="step-note">Retour ferry à Papeete la veille (30-45 min), nuit à Tahiti, puis Apetahi Express mar·ven·dim <strong>06:30 → 09:40</strong>.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="3">
@@ -270,8 +306,17 @@
           <span class="step-archi sousvent">Sous-le-Vent</span>
         </div>
         <p class="step-note">Premier arrêt des Sous-le-Vent. Très verte, peu touristique, deux îles reliées par un pont.</p>
-        <div class="step-transport"><span class="arrow">Moorea →</span><span>Retour ferry à Papeete (la veille de préférence), puis Apetahi Express mar·ven·dim <strong>06:30 → 09:40</strong> (~3h10).</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
+      </div>
+
+      <div class="step travel-step">
+        <div class="step-num travel">⛴️</div>
+        <div class="step-head">
+          <h3>Trajet Huahine → Maupiti <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ⛴️ ~5h</span>
+        </div>
+        <p class="step-note">Apetahi Express — mar·ven·dim <strong>10:00 → 14:55</strong>, mercredi <strong>11:30 → 16:30</strong>. Escales à Raiatea, Taha'a et Bora Bora.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="4">
@@ -281,8 +326,17 @@
           <span class="step-archi sousvent">Sous-le-Vent</span>
         </div>
         <p class="step-note">Lagon turquoise préservé, ambiance authentique, pas d'hôtels de luxe.</p>
-        <div class="step-transport"><span class="arrow">Huahine →</span><span>Apetahi Express — mar·ven·dim <strong>10:00 → 14:55</strong>, mercredi <strong>11:30 → 16:30</strong>. Escales à Raiatea, Taha'a et Bora Bora.</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
+      </div>
+
+      <div class="step travel-step">
+        <div class="step-num travel">⛴️</div>
+        <div class="step-head">
+          <h3>Trajet Maupiti → Papeete <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ⛴️ ~8h30</span>
+        </div>
+        <p class="step-note">Apetahi Express retour — lun·jeu·sam <strong>06:30 → 15:00</strong>. Nuit à Papeete avant le vol vers Fakarava.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="5">
@@ -292,8 +346,18 @@
           <span class="step-archi tuamotu">Tuamotu</span>
         </div>
         <p class="step-note">Réserve UNESCO, passe sud et son mur de requins — incontournable plongée.</p>
-        <div class="step-transport"><span class="arrow">Maupiti →</span><span>Apetahi Express retour lun·jeu·sam <strong>06:30 → 15:00</strong> vers Papeete, puis vol Air Tahiti Tahiti → Fakarava ~1h15 (le lendemain). Alternative : vol direct Maupiti → Tahiti ~50 min.</span></div>
+        <div class="step-transport"><span class="arrow">Papeete →</span><span>Vol Air Tahiti Tahiti → Fakarava — <strong>~1h15</strong>.</span><span class="leg-time">✈️ ~1h15</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
+      </div>
+
+      <div class="step travel-step">
+        <div class="step-num travel">✈️</div>
+        <div class="step-head">
+          <h3>Trajet Fakarava → Nuku Hiva <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ✈️ ~4h45 + escale</span>
+        </div>
+        <p class="step-note">Vol Air Tahiti via Papeete — Fakarava → Tahiti <strong>~1h15</strong> puis Tahiti → Nuku Hiva <strong>~3h30</strong>. Correspondance pas toujours le même jour.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="6">
@@ -303,7 +367,6 @@
           <span class="step-archi marquises">Marquises</span>
         </div>
         <p class="step-note">Entrée dans les Marquises. Île montagneuse, baies sauvages, ambiance très différente du reste.</p>
-        <div class="step-transport"><span class="arrow">Fakarava →</span><span>Vol Air Tahiti via Papeete — Fakarava → Tahiti ~1h15 puis Tahiti → Nuku Hiva ~3h30.</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
       </div>
 
@@ -314,7 +377,7 @@
           <span class="step-archi marquises">Marquises</span>
         </div>
         <p class="step-note">Pics basaltiques spectaculaires. Petite île, accueil très local.</p>
-        <div class="step-transport"><span class="arrow">Nuku Hiva →</span><span>Cargo local <strong>3-6h</strong> (~25 €) ou vol inter-îles ~25 min.</span></div>
+        <div class="step-transport"><span class="arrow">Nuku Hiva →</span><span>Vol inter-îles <strong>~25 min</strong>, ou cargo local 3-6h (~25 €).</span><span class="leg-time">✈️ ~25 min</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
       </div>
 
@@ -325,8 +388,18 @@
           <span class="step-archi marquises">Marquises</span>
         </div>
         <p class="step-note">Île de Gauguin et Brel, tikis monumentaux. Dernière étape avant le retour.</p>
-        <div class="step-transport"><span class="arrow">Ua Pou →</span><span>Vol inter-îles via Nuku Hiva — <strong>~40 min</strong> de vol, ou cargo local (plusieurs heures).</span></div>
+        <div class="step-transport"><span class="arrow">Ua Pou →</span><span>Vol inter-îles via Nuku Hiva — <strong>~40 min</strong> de vol, ou cargo local (plusieurs heures).</span><span class="leg-time">✈️ ~40 min</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
+      </div>
+
+      <div class="step travel-step">
+        <div class="step-num travel">✈️</div>
+        <div class="step-head">
+          <h3>Trajet Hiva Oa → Papeete <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ✈️ ~3h45</span>
+        </div>
+        <p class="step-note">Vol Air Tahiti Hiva Oa → Papeete — <strong>~3h45</strong>, souvent via Nuku Hiva.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="9">
@@ -335,8 +408,7 @@
           <h3>Tahiti <span class="tentative-tag">vol retour</span> <span class="arrival-date" data-arrival>—</span></h3>
           <span class="step-archi return">Fin du voyage</span>
         </div>
-        <p class="step-note">Retour à Tahiti pour le vol international de retour. Prévoir une marge avant le vol long-courrier.</p>
-        <div class="step-transport"><span class="arrow">Hiva Oa →</span><span>Vol Air Tahiti Hiva Oa → Papeete — <strong>~3h45</strong>, souvent via Nuku Hiva.</span></div>
+        <p class="step-note">Retour à Tahiti pour le vol international. Prévoir une marge avant le vol long-courrier.</p>
       </div>
 
     </div>
@@ -350,8 +422,8 @@
     <div class="summary">
       <div><span class="stat-num">8</span><span class="stat-label">îles</span></div>
       <div><span class="stat-num">4</span><span class="stat-label">archipels</span></div>
-      <div><span class="stat-num">~5</span><span class="stat-label">vols Air Tahiti</span></div>
-      <div><span class="stat-num">~5</span><span class="stat-label">trajets bateau</span></div>
+      <div><span class="stat-num">~7</span><span class="stat-label">vols Air Tahiti</span></div>
+      <div><span class="stat-num">4</span><span class="stat-label">trajets bateau</span></div>
     </div>
   </main>
 
@@ -418,7 +490,7 @@
 
     // --- Calcul dynamique des dates ---
     const START_DATE = new Date(2026, 9, 26); // 26 octobre 2026 (mois 0-indexé)
-    const STORAGE_KEY = 'polynesie.days.v6';
+    const STORAGE_KEY = 'polynesie.days.v7';
 
     const steps = Array.from(document.querySelectorAll('.step'));
     const inputs = steps.map(s => s.querySelector('input[data-days]'));
@@ -468,6 +540,20 @@
       if (input) input.addEventListener('input', recompute);
     });
     recompute();
+
+    // Toggle affichage des étapes de trajet (les jours restent comptés dans les dates)
+    const TRAVEL_KEY = 'polynesie.showTravelSteps';
+    const travelToggle = document.getElementById('toggle-travel');
+    const savedTravel = localStorage.getItem(TRAVEL_KEY);
+    travelToggle.checked = savedTravel === null ? true : savedTravel === '1';
+    function applyTravelToggle() {
+      document.body.classList.toggle('hide-travel', !travelToggle.checked);
+    }
+    travelToggle.addEventListener('change', () => {
+      localStorage.setItem(TRAVEL_KEY, travelToggle.checked ? '1' : '0');
+      applyTravelToggle();
+    });
+    applyTravelToggle();
   </script>
 </body>
 </html>
