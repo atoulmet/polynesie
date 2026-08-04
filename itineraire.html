@@ -187,6 +187,11 @@
       padding: 2px 8px;
       border-radius: 10px;
     }
+    .arrival-date.wrong-day {
+      border-color: #c0392b;
+      color: #c0392b;
+      box-shadow: 0 0 0 1px #c0392b;
+    }
     .days-input {
       display: flex;
       align-items: center;
@@ -292,10 +297,20 @@
       <div class="step travel-step">
         <div class="step-num travel">⛴️</div>
         <div class="step-head">
-          <h3>Trajet Moorea → Huahine <span class="arrival-date" data-arrival>—</span></h3>
-          <span class="step-archi travel">Trajet · ⛴️ ~45 min + 3h10</span>
+          <h3>Trajet Moorea → Papeete <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ⛴️ 30-45 min</span>
         </div>
-        <p class="step-note">Retour ferry à Papeete la veille (30-45 min), nuit à Tahiti, puis Apetahi Express mar·ven·dim <strong>06:30 → 09:40</strong>.</p>
+        <p class="step-note">Ferry Aremiti / Terevau — plusieurs rotations par jour. Nuit à Papeete avant l'Apetahi Express du lendemain matin.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
+      </div>
+
+      <div class="step travel-step" data-transport-days="2,5,0" data-transport-label="Apetahi Express : mar·ven·dim">
+        <div class="step-num travel">⛴️</div>
+        <div class="step-head">
+          <h3>Trajet Papeete → Huahine <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ⛴️ ~3h10</span>
+        </div>
+        <p class="step-note">Apetahi Express mar·ven·dim <strong>06:30 → 09:40</strong>.</p>
         <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
@@ -309,7 +324,7 @@
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
       </div>
 
-      <div class="step travel-step">
+      <div class="step travel-step" data-transport-days="2,3,5,0" data-transport-label="Apetahi Express : mar·mer·ven·dim">
         <div class="step-num travel">⛴️</div>
         <div class="step-head">
           <h3>Trajet Huahine → Maupiti <span class="arrival-date" data-arrival>—</span></h3>
@@ -329,7 +344,7 @@
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">jours</span></div>
       </div>
 
-      <div class="step travel-step">
+      <div class="step travel-step" data-transport-days="1,4,6" data-transport-label="Apetahi Express retour : lun·jeu·sam">
         <div class="step-num travel">⛴️</div>
         <div class="step-head">
           <h3>Trajet Maupiti → Papeete <span class="arrival-date" data-arrival>—</span></h3>
@@ -490,7 +505,7 @@
 
     // --- Calcul dynamique des dates ---
     const START_DATE = new Date(2026, 9, 26); // 26 octobre 2026 (mois 0-indexé)
-    const STORAGE_KEY = 'polynesie.days.v7';
+    const STORAGE_KEY = 'polynesie.days.v8';
 
     const steps = Array.from(document.querySelectorAll('.step'));
     const inputs = steps.map(s => s.querySelector('input[data-days]'));
@@ -520,6 +535,13 @@
         if (arrivals[i]) {
           const weekday = steps[i].classList.contains('travel-step') ? `${WEEKDAYS[current.getDay()]} ` : '';
           arrivals[i].textContent = `📅 ${weekday}${formatDate(current)}`;
+          // Encadre la date en rouge si elle ne tombe pas un jour de circulation du transport
+          const transportDays = steps[i].dataset.transportDays;
+          if (transportDays) {
+            const wrongDay = !transportDays.split(',').map(Number).includes(current.getDay());
+            arrivals[i].classList.toggle('wrong-day', wrongDay);
+            arrivals[i].title = wrongDay ? `⚠️ ${steps[i].dataset.transportLabel}` : '';
+          }
         }
         if (inputs[i]) {
           const days = parseFloat(String(inputs[i].value).replace(',', '.')) || 0;
@@ -536,10 +558,14 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
     }
 
-    // Restauration depuis localStorage
+    // Restauration depuis localStorage (migration v7 → v8 : trajet Moorea → Papeete inséré en 3e position)
     try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-      saved.forEach((v, i) => { if (inputs[i] && v !== '') inputs[i].value = v; });
+      let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      if (!saved) {
+        const old = JSON.parse(localStorage.getItem('polynesie.days.v7') || 'null');
+        if (old) { old.splice(2, 0, '1'); saved = old; }
+      }
+      (saved || []).forEach((v, i) => { if (inputs[i] && v !== '') inputs[i].value = v; });
     } catch (e) { /* ignore */ }
 
     inputs.forEach(input => {
@@ -563,3 +589,4 @@
   </script>
 </body>
 </html>
+
