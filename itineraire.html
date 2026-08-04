@@ -222,6 +222,41 @@
       border-color: var(--lagoon);
     }
     .days-input .unit { color: var(--muted); }
+    .step.night-step {
+      background: #f9f5fd;
+      border: 2px dashed #9b59b6;
+      box-shadow: none;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .step-num.night { background: white; font-size: 0.9rem; }
+    .night-step .night-count { color: #8e44ad; }
+    body.hide-nights .night-step { display: none; }
+    .night-switch {
+      display: inline-flex;
+      border: 1px solid #9b59b6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .night-switch button {
+      border: none;
+      background: white;
+      padding: 2px 12px;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #8e44ad;
+      cursor: pointer;
+    }
+    .night-switch button.active {
+      background: #8e44ad;
+      color: white;
+    }
     .return-banner {
       background: white;
       color: var(--ink);
@@ -268,6 +303,11 @@
     <label class="transfers-toggle">
       <input type="checkbox" id="toggle-travel" checked>
       Afficher les temps de trajet comme des étapes
+    </label>
+
+    <label class="transfers-toggle">
+      <input type="checkbox" id="toggle-nights" checked>
+      Afficher les nuitées
     </label>
 
     <div class="timeline">
@@ -552,10 +592,21 @@
       // Le dernier élément est l'arrivée à Tahiti (étape 12, pas d'input)
       returnDateEl.textContent = formatDate(addDays(START_DATE, total));
       totalDaysEl.textContent = formatDays(total);
+      updateNightCards();
 
       // Persistance
       const values = inputs.map(i => i ? (i.value || '') : '');
       localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+    }
+
+    function updateNightCards() {
+      document.querySelectorAll('.night-step').forEach(card => {
+        const i = +card.dataset.forInput;
+        const d = parseFloat(String(inputs[i].value).replace(',', '.')) || 0;
+        const n = Math.floor(d);
+        card.style.display = n < 1 ? 'none' : '';
+        card.querySelector('.night-count').textContent = n === 1 ? '1 nuit' : `${n} nuits`;
+      });
     }
 
     // Restauration depuis localStorage (migration v7 → v8 : trajet Moorea → Papeete inséré en 3e position)
@@ -572,6 +623,66 @@
       if (input) input.addEventListener('input', recompute);
     });
     recompute();
+
+    // --- Nuitées : cases 💤 entre les destinations ---
+    // Une case par étape avec durée : nombre de nuits = partie entière de la durée.
+    // Îles : nuit sur place. Trajets : switch départ/arrivée, choix sauvegardé.
+    const NIGHTS_KEY = 'polynesie.nights.v1';
+    let nightChoices = {};
+    try { nightChoices = JSON.parse(localStorage.getItem(NIGHTS_KEY) || '{}'); } catch (e) { /* ignore */ }
+
+    steps.forEach((step, i) => {
+      if (!inputs[i]) return; // pas de durée (étape finale) → pas de case nuitées
+      const title = step.querySelector('h3').childNodes[0].textContent.trim();
+      const card = document.createElement('div');
+      card.className = 'step night-step';
+      card.dataset.forInput = i;
+      const num = document.createElement('div');
+      num.className = 'step-num night';
+      num.textContent = '💤';
+      const count = document.createElement('strong');
+      count.className = 'night-count';
+      card.append(num, count, ' à ');
+      const m = title.match(/^Trajet (.+) → (.+)$/);
+      if (m) {
+        const sw = document.createElement('span');
+        sw.className = 'night-switch';
+        [m[1], m[2]].forEach((place, j) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = place;
+          btn.addEventListener('click', () => {
+            nightChoices[i] = j === 0 ? 'from' : 'to';
+            localStorage.setItem(NIGHTS_KEY, JSON.stringify(nightChoices));
+            sw.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+          });
+          sw.appendChild(btn);
+        });
+        sw.children[(nightChoices[i] || 'to') === 'from' ? 0 : 1].classList.add('active');
+        card.appendChild(sw);
+      } else {
+        const strong = document.createElement('strong');
+        strong.textContent = title;
+        card.appendChild(strong);
+      }
+      step.after(card);
+    });
+    updateNightCards();
+
+    // Toggle affichage des nuitées
+    const NIGHTS_TOGGLE_KEY = 'polynesie.showNights';
+    const nightsToggle = document.getElementById('toggle-nights');
+    const savedNights = localStorage.getItem(NIGHTS_TOGGLE_KEY);
+    nightsToggle.checked = savedNights === null ? true : savedNights === '1';
+    function applyNightsToggle() {
+      document.body.classList.toggle('hide-nights', !nightsToggle.checked);
+    }
+    nightsToggle.addEventListener('change', () => {
+      localStorage.setItem(NIGHTS_TOGGLE_KEY, nightsToggle.checked ? '1' : '0');
+      applyNightsToggle();
+    });
+    applyNightsToggle();
 
     // Toggle affichage des étapes de trajet (les jours restent comptés dans les dates)
     const TRAVEL_KEY = 'polynesie.showTravelSteps';
