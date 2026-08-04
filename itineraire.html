@@ -296,7 +296,7 @@
           <span class="step-archi travel">Trajet · ⛴️ ~45 min + 3h10</span>
         </div>
         <p class="step-note">Retour ferry à Papeete la veille (30-45 min), nuit à Tahiti, puis Apetahi Express mar·ven·dim <strong>06:30 → 09:40</strong>.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="3">
@@ -316,7 +316,7 @@
           <span class="step-archi travel">Trajet · ⛴️ ~5h</span>
         </div>
         <p class="step-note">Apetahi Express — mar·ven·dim <strong>10:00 → 14:55</strong>, mercredi <strong>11:30 → 16:30</strong>. Escales à Raiatea, Taha'a et Bora Bora.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="4">
@@ -336,7 +336,7 @@
           <span class="step-archi travel">Trajet · ⛴️ ~8h30</span>
         </div>
         <p class="step-note">Apetahi Express retour — lun·jeu·sam <strong>06:30 → 15:00</strong>. Nuit à Papeete avant le vol vers Fakarava.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="5">
@@ -357,7 +357,7 @@
           <span class="step-archi travel">Trajet · ✈️ ~4h45 + escale</span>
         </div>
         <p class="step-note">Vol Air Tahiti via Papeete — Fakarava → Tahiti <strong>~1h15</strong> puis Tahiti → Nuku Hiva <strong>~3h30</strong>. Correspondance pas toujours le même jour.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="6">
@@ -399,7 +399,7 @@
           <span class="step-archi travel">Trajet · ✈️ ~3h45</span>
         </div>
         <p class="step-note">Vol Air Tahiti Hiva Oa → Papeete — <strong>~3h45</strong>, souvent via Nuku Hiva.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
       </div>
 
       <div class="step" data-step="9">
@@ -505,9 +505,11 @@
       return `${day}/${month}/${year}`;
     }
     function addDays(date, n) {
-      const d = new Date(date);
-      d.setDate(d.getDate() + n);
-      return d;
+      // Gère les fractions de jour (0,5 = 12h) pour les demi-journées de trajet
+      return new Date(date.getTime() + n * 86400000);
+    }
+    function formatDays(n) {
+      return String(n).replace('.', ',');
     }
 
     function recompute() {
@@ -516,14 +518,14 @@
       for (let i = 0; i < steps.length; i++) {
         if (arrivals[i]) arrivals[i].textContent = `📅 ${formatDate(current)}`;
         if (inputs[i]) {
-          const days = parseInt(inputs[i].value, 10) || 0;
+          const days = parseFloat(String(inputs[i].value).replace(',', '.')) || 0;
           total += days;
           current = addDays(current, days);
         }
       }
       // Le dernier élément est l'arrivée à Tahiti (étape 12, pas d'input)
       returnDateEl.textContent = formatDate(addDays(START_DATE, total));
-      totalDaysEl.textContent = total;
+      totalDaysEl.textContent = formatDays(total);
 
       // Persistance
       const values = inputs.map(i => i ? (i.value || '') : '');
