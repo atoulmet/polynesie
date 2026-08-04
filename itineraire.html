@@ -498,6 +498,7 @@
     const returnDateEl = document.querySelector('[data-return-date]');
     const totalDaysEl = document.querySelector('[data-total-days]');
 
+    const WEEKDAYS = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa']; // getDay() : 0 = dimanche
     function formatDate(d) {
       const day = String(d.getDate()).padStart(2, '0');
       const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -516,7 +517,10 @@
       let current = new Date(START_DATE);
       let total = 0;
       for (let i = 0; i < steps.length; i++) {
-        if (arrivals[i]) arrivals[i].textContent = `📅 ${formatDate(current)}`;
+        if (arrivals[i]) {
+          const weekday = steps[i].classList.contains('travel-step') ? `${WEEKDAYS[current.getDay()]} ` : '';
+          arrivals[i].textContent = `📅 ${weekday}${formatDate(current)}`;
+        }
         if (inputs[i]) {
           const days = parseFloat(String(inputs[i].value).replace(',', '.')) || 0;
           total += days;
