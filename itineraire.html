@@ -70,11 +70,11 @@
     .step-num.return { background: var(--ink); }
     .step-num.travel { background: white; font-size: 0.9rem; }
     .step.travel-step {
-      background: #eef8fb;
-      border: 2px dashed var(--lagoon);
+      background: #f9f5fd;
+      border: 2px dashed #9b59b6;
       box-shadow: none;
     }
-    .step-archi.travel { background: #d3edf3; color: #0a6e8c; }
+    .step-archi.travel { background: #ede3f5; color: #8e44ad; }
     body.hide-travel .travel-step { display: none; }
     .step-head {
       display: flex;
@@ -302,7 +302,7 @@
           <span class="step-archi travel">Trajet · ⛴️ 30-45 min</span>
         </div>
         <p class="step-note">Ferry Aremiti / Terevau — plusieurs rotations par jour. Nuit à Papeete avant l'Apetahi Express du lendemain matin.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span></div>
       </div>
 
       <div class="step travel-step" data-transport-days="2,5,0" data-transport-label="Apetahi Express : mar·ven·dim">
@@ -312,7 +312,7 @@
           <span class="step-archi travel">Trajet · ⛴️ ~3h10</span>
         </div>
         <p class="step-note">Apetahi Express mar·ven·dim <strong>06:30 → 09:40</strong>.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span></div>
       </div>
 
       <div class="step" data-step="3">
@@ -332,7 +332,7 @@
           <span class="step-archi travel">Trajet · ⛴️ ~5h</span>
         </div>
         <p class="step-note">Apetahi Express — mar·ven·dim <strong>10:00 → 14:55</strong>, mercredi <strong>11:30 → 16:30</strong>. Escales à Raiatea, Taha'a et Bora Bora.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span></div>
       </div>
 
       <div class="step" data-step="4">
@@ -352,7 +352,7 @@
           <span class="step-archi travel">Trajet · ⛴️ ~8h30</span>
         </div>
         <p class="step-note">Apetahi Express retour — lun·jeu·sam <strong>06:30 → 15:00</strong>. Nuit à Papeete avant le vol vers Fakarava.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span></div>
       </div>
 
       <div class="step" data-step="5">
@@ -373,7 +373,7 @@
           <span class="step-archi travel">Trajet · ✈️ ~1h15</span>
         </div>
         <p class="step-note">Vol Air Tahiti — <strong>~1h15</strong>.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="0.5" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span></div>
       </div>
 
       <div class="step travel-step">
@@ -383,7 +383,7 @@
           <span class="step-archi travel">Trajet · ✈️ ~3h30</span>
         </div>
         <p class="step-note">Vol Air Tahiti — <strong>~3h30</strong>. Correspondance pas toujours le même jour.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="0.5" data-days /><span class="unit">jours</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span></div>
       </div>
 
       <div class="step" data-step="6">
@@ -407,25 +407,25 @@
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span></div>
       </div>
 
-      <div class="step" data-step="8">
+      <div class="step" data-step="8" data-transport-days="1,5,6,0" data-transport-label="Vol Nuku Hiva → Hiva Oa : lun·ven·sam·dim">
         <div class="step-num marquises">8</div>
         <div class="step-head">
           <h3>Hiva Oa <span class="arrival-date" data-arrival>—</span></h3>
           <span class="step-archi marquises">Marquises</span>
         </div>
         <p class="step-note">Île de Gauguin et Brel, tikis monumentaux. Dernière étape avant le retour.</p>
-        <div class="step-transport"><span class="arrow">Ua Pou →</span><span>Vol inter-îles via Nuku Hiva — <strong>~40 min</strong> de vol, ou cargo local (plusieurs heures).</span><span class="leg-time">✈️ ~40 min</span></div>
+        <div class="step-transport"><span class="arrow">Ua Pou →</span><span>Vol inter-îles via Nuku Hiva — <strong>~40 min</strong> de vol, ou cargo local (plusieurs heures). Vol Nuku Hiva → Hiva Oa : <strong>lun·ven·sam·dim</strong>.</span><span class="leg-time">✈️ ~40 min</span></div>
         <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span></div>
       </div>
 
-      <div class="step travel-step">
+      <div class="step travel-step" data-transport-days="2,3,4,5,0" data-transport-label="Vol Hiva Oa → Nuku Hiva : mar·mer·jeu·ven·dim">
         <div class="step-num travel">✈️</div>
         <div class="step-head">
           <h3>Trajet Hiva Oa → Papeete <span class="arrival-date" data-arrival>—</span></h3>
           <span class="step-archi travel">Trajet · ✈️ ~3h45</span>
         </div>
-        <p class="step-note">Vol Air Tahiti Hiva Oa → Papeete — <strong>~3h45</strong>, souvent via Nuku Hiva.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" step="0.5" value="1" data-days /><span class="unit">jours</span></div>
+        <p class="step-note">Vol Air Tahiti Hiva Oa → Papeete — <strong>~3h45</strong>, souvent via Nuku Hiva. Vol Hiva Oa → Nuku Hiva : <strong>mar·mer·jeu·ven·dim</strong>.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span></div>
       </div>
 
       <div class="step" data-step="9">
@@ -442,7 +442,7 @@
     <div class="return-banner">
       <div class="label">📅 Date de retour estimée</div>
       <div class="date" data-return-date>—</div>
-      <div class="total">Soit <strong data-total-days>0</strong> jours de voyage depuis le 26/10/2026</div>
+      <div class="total">Soit <strong data-total-days>0</strong> nuits de voyage depuis le 26/10/2026</div>
     </div>
 
     <div class="summary">
@@ -516,7 +516,7 @@
 
     // --- Calcul dynamique des dates ---
     const START_DATE = new Date(2026, 9, 26); // 26 octobre 2026 (mois 0-indexé)
-    const STORAGE_KEY = 'polynesie.days.v9';
+    const STORAGE_KEY = 'polynesie.days.v10';
 
     const steps = Array.from(document.querySelectorAll('.step'));
     const inputs = steps.map(s => s.querySelector('input[data-days]'));
@@ -544,7 +544,8 @@
       let total = 0;
       for (let i = 0; i < steps.length; i++) {
         if (arrivals[i]) {
-          const weekday = steps[i].classList.contains('travel-step') ? `${WEEKDAYS[current.getDay()]} ` : '';
+          const showWeekday = steps[i].classList.contains('travel-step') || steps[i].dataset.transportDays;
+          const weekday = showWeekday ? `${WEEKDAYS[current.getDay()]} ` : '';
           arrivals[i].textContent = `📅 ${weekday}${formatDate(current)}`;
           // Encadre la date en rouge si elle ne tombe pas un jour de circulation du transport
           const transportDays = steps[i].dataset.transportDays;
@@ -571,16 +572,27 @@
 
     // Restauration depuis localStorage
     // Migrations : v7 → v8 (trajet Moorea → Papeete inséré en position 2),
-    // v8 → v9 (trajet Fakarava → Nuku Hiva scindé en deux en position 9, 0,5 j chacun)
+    // v8 → v9 (trajet Fakarava → Nuku Hiva scindé en deux en position 9),
+    // v9 → v10 (trajets en nuits : 0,5 j → 0 nuit, 1 j → 1 nuit)
+    const TRAVEL_INDEXES = [2, 3, 5, 7, 9, 10, 14];
     try {
       let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
       if (!saved) {
-        let old = JSON.parse(localStorage.getItem('polynesie.days.v8') || 'null');
+        let old = JSON.parse(localStorage.getItem('polynesie.days.v9') || 'null');
         if (!old) {
-          const v7 = JSON.parse(localStorage.getItem('polynesie.days.v7') || 'null');
-          if (v7) { v7.splice(2, 0, '1'); old = v7; }
+          old = JSON.parse(localStorage.getItem('polynesie.days.v8') || 'null');
+          if (!old) {
+            const v7 = JSON.parse(localStorage.getItem('polynesie.days.v7') || 'null');
+            if (v7) { v7.splice(2, 0, '1'); old = v7; }
+          }
+          if (old) old.splice(9, 1, '0.5', '0.5');
         }
-        if (old) { old.splice(9, 1, '0.5', '0.5'); saved = old; }
+        if (old) {
+          TRAVEL_INDEXES.forEach(i => {
+            if (old[i]) old[i] = String(Math.floor(parseFloat(String(old[i]).replace(',', '.')) || 0));
+          });
+          saved = old;
+        }
       }
       (saved || []).forEach((v, i) => { if (inputs[i] && v !== '') inputs[i].value = v; });
     } catch (e) { /* ignore */ }
