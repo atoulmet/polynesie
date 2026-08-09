@@ -227,6 +227,8 @@
     .days-input input.price-field { width: 76px; }
     .days-input.link-row input { flex: 1; min-width: 160px; width: auto; font-weight: 400; text-align: left; }
     .days-input.link-row a { color: var(--ocean); font-size: 0.95rem; white-space: nowrap; text-decoration: none; }
+    .days-input .deb { display: inline-flex; align-items: center; gap: 3px; font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+    .days-input .deb input { width: auto; accent-color: var(--ocean); }
     .return-banner {
       background: white;
       color: var(--ink);
@@ -262,7 +264,7 @@
   <header class="hero">
     <a href="index.html" class="back-link">← Retour</a>
     <h1>Itinéraire</h1>
-    <p>Suite logique des îles, de Tahiti aux Marquises · arrivée le <strong>26/10/2026</strong></p>
+    <p>De Tahiti aux Marquises via les Sous-le-Vent · arrivée le <strong>26/10/2026</strong></p>
   </header>
 
   <main>
@@ -275,7 +277,6 @@
       Afficher les temps de trajet comme des étapes
     </label>
 
-
     <div class="timeline">
 
       <div class="step" data-step="1">
@@ -286,7 +287,7 @@
         </div>
         <p class="step-note">Atterrissage international à Papeete. Acclimatation, formalités, première découverte.</p>
         <div class="step-transport"><span class="arrow">→ Arrivée :</span><span>Vol international (PPT) — porte d'entrée de la Polynésie.</span><span class="leg-time">✈️ ~22h depuis Paris</span></div>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
       <div class="step" data-step="2">
@@ -297,7 +298,7 @@
         </div>
         <p class="step-note">Île jumelle de Tahiti, plages et baies spectaculaires. Idéal pour démarrer en douceur.</p>
         <div class="step-transport"><span class="arrow">Tahiti →</span><span>Ferry Aremiti / Terevau depuis Papeete — <strong>30-45 min</strong>.</span><span class="leg-time">⛴️ 30-45 min</span></div>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
       <div class="step travel-step">
@@ -307,7 +308,7 @@
           <span class="step-archi travel">Trajet · ⛴️ 30-45 min</span>
         </div>
         <p class="step-note">Ferry Aremiti / Terevau — plusieurs rotations par jour. Nuit à Papeete avant l'Apetahi Express du lendemain matin.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span><label class="deb"><input type="checkbox" data-deb-t />débité</label></div>
       </div>
 
       <div class="step travel-step" data-transport-days="2,5,0" data-transport-label="Apetahi Express : mar·ven·dim">
@@ -317,7 +318,7 @@
           <span class="step-archi travel">Trajet · ⛴️ ~3h10</span>
         </div>
         <p class="step-note">Apetahi Express mar·ven·dim <strong>06:30 → 09:40</strong>.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span><label class="deb"><input type="checkbox" data-deb-t />débité</label></div>
       </div>
 
       <div class="step" data-step="3">
@@ -327,7 +328,7 @@
           <span class="step-archi sousvent">Sous-le-Vent</span>
         </div>
         <p class="step-note">Premier arrêt des Sous-le-Vent. Très verte, peu touristique, deux îles reliées par un pont.</p>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
       <div class="step travel-step" data-transport-days="2,3,5,0" data-transport-label="Apetahi Express : mar·mer·ven·dim">
@@ -337,7 +338,7 @@
           <span class="step-archi travel">Trajet · ⛴️ ~5h</span>
         </div>
         <p class="step-note">Apetahi Express — mar·ven·dim <strong>10:00 → 14:55</strong>, mercredi <strong>11:30 → 16:30</strong>. Escales à Raiatea, Taha'a et Bora Bora.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span><label class="deb"><input type="checkbox" data-deb-t />débité</label></div>
       </div>
 
       <div class="step" data-step="4">
@@ -347,28 +348,48 @@
           <span class="step-archi sousvent">Sous-le-Vent</span>
         </div>
         <p class="step-note">Lagon turquoise préservé, ambiance authentique, pas d'hôtels de luxe.</p>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
       <div class="step travel-step" data-transport-days="1,4,6" data-transport-label="Apetahi Express retour : lun·jeu·sam">
         <div class="step-num travel">⛴️</div>
         <div class="step-head">
-          <h3>Trajet Maupiti → Papeete <span class="arrival-date" data-arrival>—</span></h3>
-          <span class="step-archi travel">Trajet · ⛴️ ~8h30</span>
+          <h3>Trajet Maupiti → Bora Bora <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ⛴️ ~1h30</span>
         </div>
-        <p class="step-note">Apetahi Express retour — lun·jeu·sam <strong>06:30 → 15:00</strong>. Nuit à Papeete avant le vol vers Fakarava.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span></div>
+        <p class="step-note">Apetahi Express retour — départ Maupiti lun·jeu·sam <strong>06:30</strong>.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span><label class="deb"><input type="checkbox" data-deb-t />débité</label></div>
       </div>
 
       <div class="step" data-step="5">
-        <div class="step-num tuamotu">5</div>
+        <div class="step-num sousvent">5</div>
+        <div class="step-head">
+          <h3>Bora Bora <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi sousvent">Sous-le-Vent</span>
+        </div>
+        <p class="step-note">Le lagon mythique dominé par le mont Otemanu. Dernier arrêt des Sous-le-Vent avant le retour vers Papeete.</p>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
+      </div>
+
+      <div class="step travel-step" data-transport-days="1,4,6" data-transport-label="Apetahi Express retour : lun·jeu·sam">
+        <div class="step-num travel">⛴️</div>
+        <div class="step-head">
+          <h3>Trajet Bora Bora → Papeete <span class="arrival-date" data-arrival>—</span></h3>
+          <span class="step-archi travel">Trajet · ⛴️ ~7h</span>
+        </div>
+        <p class="step-note">Apetahi Express retour — lun·jeu·sam, arrivée Papeete <strong>15:00</strong>. Nuit à Papeete avant le vol vers Fakarava.</p>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span><label class="deb"><input type="checkbox" data-deb-t />débité</label></div>
+      </div>
+
+      <div class="step" data-step="6">
+        <div class="step-num tuamotu">6</div>
         <div class="step-head">
           <h3>Fakarava <span class="arrival-date" data-arrival>—</span></h3>
           <span class="step-archi tuamotu">Tuamotu</span>
         </div>
         <p class="step-note">Réserve UNESCO, passe sud et son mur de requins — incontournable plongée.</p>
         <div class="step-transport"><span class="arrow">Papeete →</span><span>Vol Air Tahiti Tahiti → Fakarava — <strong>~1h15</strong>.</span><span class="leg-time">✈️ ~1h15</span></div>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
       <div class="step travel-step">
@@ -378,7 +399,7 @@
           <span class="step-archi travel">Trajet · ✈️ ~1h15</span>
         </div>
         <p class="step-note">Vol Air Tahiti — <strong>~1h15</strong>.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span><label class="deb"><input type="checkbox" data-deb-t />débité</label></div>
       </div>
 
       <div class="step travel-step">
@@ -388,39 +409,39 @@
           <span class="step-archi travel">Trajet · ✈️ ~3h30</span>
         </div>
         <p class="step-note">Vol Air Tahiti — <strong>~3h30</strong>. Correspondance pas toujours le même jour.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="0" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span><label class="deb"><input type="checkbox" data-deb-t />débité</label></div>
       </div>
 
-      <div class="step" data-step="6">
-        <div class="step-num marquises">6</div>
+      <div class="step" data-step="7">
+        <div class="step-num marquises">7</div>
         <div class="step-head">
           <h3>Nuku Hiva <span class="arrival-date" data-arrival>—</span></h3>
           <span class="step-archi marquises">Marquises</span>
         </div>
         <p class="step-note">Entrée dans les Marquises. Île montagneuse, baies sauvages, ambiance très différente du reste.</p>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
-      <div class="step" data-step="7">
-        <div class="step-num marquises">7</div>
+      <div class="step" data-step="8">
+        <div class="step-num marquises">8</div>
         <div class="step-head">
           <h3>Ua Pou <span class="tentative-tag">à confirmer</span> <span class="arrival-date" data-arrival>—</span></h3>
           <span class="step-archi marquises">Marquises</span>
         </div>
         <p class="step-note">Pics basaltiques spectaculaires. Petite île, accueil très local.</p>
         <div class="step-transport"><span class="arrow">Nuku Hiva →</span><span>Vol inter-îles <strong>~25 min</strong>, ou cargo local 3-6h (~25 €).</span><span class="leg-time">✈️ ~25 min</span></div>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
-      <div class="step" data-step="8" data-transport-days="1,5,6,0" data-transport-label="Vol Nuku Hiva → Hiva Oa : lun·ven·sam·dim">
-        <div class="step-num marquises">8</div>
+      <div class="step" data-step="9" data-transport-days="1,5,6,0" data-transport-label="Vol Nuku Hiva → Hiva Oa : lun·ven·sam·dim">
+        <div class="step-num marquises">9</div>
         <div class="step-head">
           <h3>Hiva Oa <span class="arrival-date" data-arrival>—</span></h3>
           <span class="step-archi marquises">Marquises</span>
         </div>
         <p class="step-note">Île de Gauguin et Brel, tikis monumentaux. Dernière étape avant le retour.</p>
         <div class="step-transport"><span class="arrow">Ua Pou →</span><span>Vol inter-îles via Nuku Hiva — <strong>~40 min</strong> de vol, ou cargo local (plusieurs heures). Vol Nuku Hiva → Hiva Oa : <strong>lun·ven·sam·dim</strong>.</span><span class="leg-time">✈️ ~40 min</span></div>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
       <div class="step travel-step" data-transport-days="2,3,4,5,0" data-transport-label="Vol Hiva Oa → Nuku Hiva : mar·mer·jeu·ven·dim">
@@ -430,17 +451,17 @@
           <span class="step-archi travel">Trajet · ✈️ ~3h45</span>
         </div>
         <p class="step-note">Vol Air Tahiti Hiva Oa → Papeete — <strong>~3h45</strong>, souvent via Nuku Hiva. Vol Hiva Oa → Nuku Hiva : <strong>mar·mer·jeu·ven·dim</strong>.</p>
-        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span></div>
+        <div class="days-input"><label>Durée du trajet :</label><input type="number" min="0" max="10" value="1" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>Prix</label><input type="number" min="0" class="price-field" data-price-t /><span class="unit">€</span><label class="deb"><input type="checkbox" data-deb-t />débité</label></div>
       </div>
 
-      <div class="step" data-step="9">
-        <div class="step-num return">9</div>
+      <div class="step" data-step="10">
+        <div class="step-num return">10</div>
         <div class="step-head">
           <h3>Tahiti <span class="tentative-tag">vol retour</span> <span class="arrival-date" data-arrival>—</span></h3>
           <span class="step-archi return">Fin du voyage</span>
         </div>
         <p class="step-note">Retour à Tahiti pour le vol international. Prévoir une marge avant le vol long-courrier.</p>
-        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span></div>
+        <div class="days-input"><label>Durée du séjour :</label><input type="number" min="0" max="60" data-days /><span class="unit">nuits</span><span class="psep">·</span><label>A</label><input type="number" min="0" class="price-field" data-price-a /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-a />débité</label><span class="psep">·</span><label>B</label><input type="number" min="0" class="price-field" data-price-b /><span class="unit">€/nuit</span><label class="deb"><input type="checkbox" data-deb-b />débité</label></div>
       </div>
 
     </div>
@@ -451,13 +472,15 @@
       <div class="total">Soit <strong data-total-days>0</strong> nuits de voyage depuis le 26/10/2026</div>
       <div class="total">🛏️ Nuits — option A : <strong data-price-nights-a>0 €</strong> · option B : <strong data-price-nights-b>0 €</strong> · 🧭 Trajets : <strong data-price-travel>0 €</strong></div>
       <div class="total">💰 Total — option A : <strong data-price-total-a>0 €</strong> · option B : <strong data-price-total-b>0 €</strong></div>
+      <div class="total">💳 Déjà débité — option A : <strong data-deb-total-a>0 €</strong> · option B : <strong data-deb-total-b>0 €</strong></div>
+      <div class="total">⏳ Reste à payer — option A : <strong data-rest-total-a>0 €</strong> · option B : <strong data-rest-total-b>0 €</strong></div>
     </div>
 
     <div class="summary">
-      <div><span class="stat-num">8</span><span class="stat-label">îles</span></div>
+      <div><span class="stat-num">9</span><span class="stat-label">îles</span></div>
       <div><span class="stat-num">4</span><span class="stat-label">archipels</span></div>
-      <div><span class="stat-num">~7</span><span class="stat-label">vols Air Tahiti</span></div>
-      <div><span class="stat-num">4</span><span class="stat-label">trajets bateau</span></div>
+      <div><span class="stat-num">~6</span><span class="stat-label">vols Air Tahiti</span></div>
+      <div><span class="stat-num">5</span><span class="stat-label">trajets bateau</span></div>
     </div>
   </main>
 
@@ -482,10 +505,11 @@
       { n: 2, name: 'Moorea', lat: -17.5388, lon: -149.8295, archi: 'vent' },
       { n: 3, name: 'Huahine', lat: -16.7333, lon: -151.0167, archi: 'sousvent' },
       { n: 4, name: 'Maupiti', lat: -16.4344, lon: -152.2522, archi: 'sousvent' },
-      { n: 5, name: 'Fakarava', lat: -16.3333, lon: -145.6167, archi: 'tuamotu' },
-      { n: 6, name: 'Nuku Hiva', lat: -8.8667, lon: -140.1, archi: 'marquises' },
-      { n: 7, name: 'Ua Pou', lat: -9.4, lon: -140.0833, archi: 'marquises' },
-      { n: 8, name: 'Hiva Oa', lat: -9.7833, lon: -139.0333, archi: 'marquises' },
+      { n: 5, name: 'Bora Bora', lat: -16.5004, lon: -151.7415, archi: 'sousvent' },
+      { n: 6, name: 'Fakarava', lat: -16.3333, lon: -145.6167, archi: 'tuamotu' },
+      { n: 7, name: 'Nuku Hiva', lat: -8.8667, lon: -140.1, archi: 'marquises' },
+      { n: 8, name: 'Ua Pou', lat: -9.4, lon: -140.0833, archi: 'marquises' },
+      { n: 9, name: 'Hiva Oa', lat: -9.7833, lon: -139.0333, archi: 'marquises' },
     ];
 
     // Route polyline (aller + retour vers Papeete)
@@ -524,8 +548,13 @@
 
     // --- Calcul dynamique des dates ---
     const START_DATE = new Date(2026, 9, 26); // 26 octobre 2026 (mois 0-indexé)
-    const STORAGE_KEY = 'polynesie.days.v10';
-    const PRICES_KEY = 'polynesie.prices.v1';
+    const STORAGE_KEY = 'polynesie.bis.days.v3';
+    const PRICES_KEY = 'polynesie.bis.prices.v3';
+    const DEBITS_KEY = 'polynesie.bis.debits.v1';
+    // Migration v1 → v2 : nouvel index i ← ancien index MAP_V1[i] (-1 = nouveau champ)
+    // v1 : [Tahiti, P→Hua, Huahine, Hua→Maupiti, Maupiti, Maupiti→Pap, Pap→Moorea, Moorea,
+    //       Moorea→Pap, Fakarava, F→P, P→NH, NukuHiva, UaPou, HivaOa, HO→P, Tahiti fin]
+    const MAP_V1 = [0, 7, 8, 1, 2, 3, -1, -1, 4, 5, 9, 10, 11, 12, 13, 14, 15, 16];
 
     const steps = Array.from(document.querySelectorAll('.step'));
     const inputs = steps.map(s => s.querySelector('input[data-days]'));
@@ -540,6 +569,13 @@
     const priceTravelEl = document.querySelector('[data-price-travel]');
     const priceTotalAEl = document.querySelector('[data-price-total-a]');
     const priceTotalBEl = document.querySelector('[data-price-total-b]');
+    const debAInputs = steps.map(s => s.querySelector('input[data-deb-a]'));
+    const debBInputs = steps.map(s => s.querySelector('input[data-deb-b]'));
+    const debTInputs = steps.map(s => s.querySelector('input[data-deb-t]'));
+    const debTotalAEl = document.querySelector('[data-deb-total-a]');
+    const debTotalBEl = document.querySelector('[data-deb-total-b]');
+    const restTotalAEl = document.querySelector('[data-rest-total-a]');
+    const restTotalBEl = document.querySelector('[data-rest-total-b]');
     function num(input) {
       return input ? (parseFloat(String(input.value).replace(',', '.')) || 0) : 0;
     }
@@ -555,7 +591,6 @@
       return `${day}/${month}/${year}`;
     }
     function addDays(date, n) {
-      // Gère les fractions de jour (0,5 = 12h) pour les demi-journées de trajet
       return new Date(date.getTime() + n * 86400000);
     }
     function formatDays(n) {
@@ -566,11 +601,10 @@
       let current = new Date(START_DATE);
       let total = 0;
       let priceNightsA = 0, priceNightsB = 0, priceTravel = 0;
+      let debitedA = 0, debitedB = 0, debitedTravel = 0;
       for (let i = 0; i < steps.length; i++) {
         if (arrivals[i]) {
-          const showWeekday = steps[i].classList.contains('travel-step') || steps[i].dataset.transportDays;
-          const weekday = showWeekday ? `${WEEKDAYS[current.getDay()]} ` : '';
-          arrivals[i].textContent = `📅 ${weekday}${formatDate(current)}`;
+          arrivals[i].textContent = `📅 ${WEEKDAYS[current.getDay()]} ${formatDate(current)}`;
           // Encadre la date en rouge si elle ne tombe pas un jour de circulation du transport
           const transportDays = steps[i].dataset.transportDays;
           if (transportDays) {
@@ -585,16 +619,24 @@
           current = addDays(current, days);
           priceNightsA += days * num(priceAInputs[i]);
           priceNightsB += days * num(priceBInputs[i]);
+          if (debAInputs[i] && debAInputs[i].checked) debitedA += days * num(priceAInputs[i]);
+          if (debBInputs[i] && debBInputs[i].checked) debitedB += days * num(priceBInputs[i]);
         }
         priceTravel += num(priceTInputs[i]);
+        if (debTInputs[i] && debTInputs[i].checked) debitedTravel += num(priceTInputs[i]);
       }
-      returnDateEl.textContent = formatDate(addDays(START_DATE, total));
+      const returnDate = addDays(START_DATE, total);
+      returnDateEl.textContent = `${WEEKDAYS[returnDate.getDay()]} ${formatDate(returnDate)}`;
       totalDaysEl.textContent = formatDays(total);
       priceNightsAEl.textContent = formatPrice(priceNightsA);
       priceNightsBEl.textContent = formatPrice(priceNightsB);
       priceTravelEl.textContent = formatPrice(priceTravel);
       priceTotalAEl.textContent = formatPrice(priceNightsA + priceTravel);
       priceTotalBEl.textContent = formatPrice(priceNightsB + priceTravel);
+      debTotalAEl.textContent = formatPrice(debitedA + debitedTravel);
+      debTotalBEl.textContent = formatPrice(debitedB + debitedTravel);
+      restTotalAEl.textContent = formatPrice(priceNightsA + priceTravel - debitedA - debitedTravel);
+      restTotalBEl.textContent = formatPrice(priceNightsB + priceTravel - debitedB - debitedTravel);
 
       // Persistance
       const values = inputs.map(i => i ? (i.value || '') : '');
@@ -604,40 +646,42 @@
         priceBInputs[i] ? (priceBInputs[i].value || '') : '',
         priceTInputs[i] ? (priceTInputs[i].value || '') : '',
       ])));
+      localStorage.setItem(DEBITS_KEY, JSON.stringify(steps.map((s, i) => [
+        debAInputs[i] && debAInputs[i].checked ? '1' : '',
+        debBInputs[i] && debBInputs[i].checked ? '1' : '',
+        debTInputs[i] && debTInputs[i].checked ? '1' : '',
+      ])));
       schedulePush();
     }
 
     // Restauration depuis localStorage
-    // Migrations : v7 → v8 (trajet Moorea → Papeete inséré en position 2),
-    // v8 → v9 (trajet Fakarava → Nuku Hiva scindé en deux en position 9),
-    // v9 → v10 (trajets en nuits : 0,5 j → 0 nuit, 1 j → 1 nuit)
-    const TRAVEL_INDEXES = [2, 3, 5, 7, 9, 10, 14];
+    // Les clés gardent le préfixe historique « bis » pour conserver les données déjà saisies.
+    // Migration v2 → v3 : Maupiti et Bora Bora inversés (index 6 ↔ 8)
     try {
       let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
       if (!saved) {
-        let old = JSON.parse(localStorage.getItem('polynesie.days.v9') || 'null');
+        let old = JSON.parse(localStorage.getItem('polynesie.bis.days.v2') || 'null');
         if (!old) {
-          old = JSON.parse(localStorage.getItem('polynesie.days.v8') || 'null');
-          if (!old) {
-            const v7 = JSON.parse(localStorage.getItem('polynesie.days.v7') || 'null');
-            if (v7) { v7.splice(2, 0, '1'); old = v7; }
-          }
-          if (old) old.splice(9, 1, '0.5', '0.5');
+          const v1 = JSON.parse(localStorage.getItem('polynesie.bis.days.v1') || 'null');
+          if (v1) old = MAP_V1.map(j => (j >= 0 && v1[j] != null) ? v1[j] : '');
         }
-        if (old) {
-          TRAVEL_INDEXES.forEach(i => {
-            if (old[i]) old[i] = String(Math.floor(parseFloat(String(old[i]).replace(',', '.')) || 0));
-          });
-          saved = old;
-        }
+        if (old) { const t = old[6]; old[6] = old[8]; old[8] = t; saved = old; }
       }
       (saved || []).forEach((v, i) => { if (inputs[i] && v !== '') inputs[i].value = v; });
     } catch (e) { /* ignore */ }
 
     // Restauration des prix
     try {
-      const savedPrices = JSON.parse(localStorage.getItem(PRICES_KEY) || '[]');
-      savedPrices.forEach((p, i) => {
+      let savedPrices = JSON.parse(localStorage.getItem(PRICES_KEY) || 'null');
+      if (!savedPrices) {
+        let oldP = JSON.parse(localStorage.getItem('polynesie.bis.prices.v2') || 'null');
+        if (!oldP) {
+          const p1 = JSON.parse(localStorage.getItem('polynesie.bis.prices.v1') || 'null');
+          if (p1) oldP = MAP_V1.map(j => (j >= 0 && p1[j]) ? p1[j] : ['', '', '']);
+        }
+        if (oldP) { const t = oldP[6]; oldP[6] = oldP[8]; oldP[8] = t; savedPrices = oldP; }
+      }
+      (savedPrices || []).forEach((p, i) => {
         if (!p) return;
         if (priceAInputs[i] && p[0] !== '') priceAInputs[i].value = p[0];
         if (priceBInputs[i] && p[1] !== '') priceBInputs[i].value = p[1];
@@ -645,15 +689,26 @@
       });
     } catch (e) { /* ignore */ }
 
-    [...inputs, ...priceAInputs, ...priceBInputs, ...priceTInputs].forEach(input => {
+    // Restauration des statuts « débité »
+    try {
+      const savedDebits = JSON.parse(localStorage.getItem(DEBITS_KEY) || '[]');
+      savedDebits.forEach((d, i) => {
+        if (!d) return;
+        if (debAInputs[i]) debAInputs[i].checked = d[0] === '1';
+        if (debBInputs[i]) debBInputs[i].checked = d[1] === '1';
+        if (debTInputs[i]) debTInputs[i].checked = d[2] === '1';
+      });
+    } catch (e) { /* ignore */ }
+
+    [...inputs, ...priceAInputs, ...priceBInputs, ...priceTInputs, ...debAInputs, ...debBInputs, ...debTInputs].forEach(input => {
       if (input) input.addEventListener('input', recompute);
     });
     recompute();
 
     // --- Liens de réservation hôtels (option A / B par île) ---
     // Sauvegarde locale + synchro avec /api/reservations (Vercel Postgres) quand l'API est joignable.
-    const LINKS_KEY = 'polynesie.links.v1';
-    const PAGE_ID = 'main';
+    const LINKS_KEY = 'polynesie.bis.links.v1';
+    const PAGE_ID = 'bis';
     const API_URL = '/api/reservations';
     let links = {};
     try { links = JSON.parse(localStorage.getItem(LINKS_KEY) || '{}'); } catch (e) { /* ignore */ }
@@ -740,6 +795,11 @@
             priceBInputs[i] ? (priceBInputs[i].value || '') : '',
             priceTInputs[i] ? (priceTInputs[i].value || '') : '',
           ]),
+          debits: steps.map((s, i) => [
+            debAInputs[i] && debAInputs[i].checked ? '1' : '',
+            debBInputs[i] && debBInputs[i].checked ? '1' : '',
+            debTInputs[i] && debTInputs[i].checked ? '1' : '',
+          ]),
         };
         fetch('/api/etat', {
           method: 'POST',
@@ -760,14 +820,20 @@
             if (priceBInputs[i]) priceBInputs[i].value = p[1] || '';
             if (priceTInputs[i]) priceTInputs[i].value = p[2] || '';
           });
+          (data.debits || []).forEach((d, i) => {
+            if (!d) return;
+            if (debAInputs[i]) debAInputs[i].checked = d[0] === '1';
+            if (debBInputs[i]) debBInputs[i].checked = d[1] === '1';
+            if (debTInputs[i]) debTInputs[i].checked = d[2] === '1';
+          });
           recompute();
         }
       })
       .catch(() => { /* ignore */ })
       .finally(() => { stateReady = true; });
 
-    // Toggle affichage des étapes de trajet (les jours restent comptés dans les dates)
-    const TRAVEL_KEY = 'polynesie.showTravelSteps';
+    // Toggle affichage des étapes de trajet (les nuits restent comptées dans les dates)
+    const TRAVEL_KEY = 'polynesie.bis.showTravelSteps';
     const travelToggle = document.getElementById('toggle-travel');
     const savedTravel = localStorage.getItem(TRAVEL_KEY);
     travelToggle.checked = savedTravel === null ? true : savedTravel === '1';
@@ -782,6 +848,3 @@
   </script>
 </body>
 </html>
-
-
-
