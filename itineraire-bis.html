@@ -225,6 +225,8 @@
     .days-input { flex-wrap: wrap; }
     .days-input .psep { color: #c9d6dc; }
     .days-input input.price-field { width: 76px; }
+    .days-input.link-row input { flex: 1; min-width: 160px; width: auto; font-weight: 400; text-align: left; }
+    .days-input.link-row a { color: var(--ocean); font-size: 0.95rem; white-space: nowrap; text-decoration: none; }
     .return-banner {
       background: white;
       color: var(--ink);
@@ -665,6 +667,80 @@
       if (input) input.addEventListener('input', recompute);
     });
     recompute();
+
+    // --- Liens de réservation hôtels (option A / B par île) ---
+    // Sauvegarde locale + synchro avec /api/reservations (Vercel Postgres) quand l'API est joignable.
+    const LINKS_KEY = 'polynesie.bis.links.v1';
+    const PAGE_ID = 'bis';
+    const API_URL = '/api/reservations';
+    let links = {};
+    try { links = JSON.parse(localStorage.getItem(LINKS_KEY) || '{}'); } catch (e) { /* ignore */ }
+
+    const linkFields = [];
+    const seenIslands = {};
+    steps.forEach(step => {
+      if (step.classList.contains('travel-step')) return;
+      const daysRow = step.querySelector('.days-input');
+      if (!daysRow) return;
+      const island = step.querySelector('h3').childNodes[0].textContent.trim();
+      seenIslands[island] = (seenIslands[island] || 0) + 1;
+      const name = seenIslands[island] > 1 ? `${island}#${seenIslands[island]}` : island;
+      const row = document.createElement('div');
+      row.className = 'days-input link-row';
+      const lbl = document.createElement('label');
+      lbl.textContent = '🔗 Résa';
+      row.appendChild(lbl);
+      ['A', 'B'].forEach(opt => {
+        const key = `${name}|${opt}`;
+        const input = document.createElement('input');
+        input.type = 'url';
+        input.placeholder = `lien option ${opt}`;
+        const anchor = document.createElement('a');
+        anchor.textContent = '↗';
+        anchor.target = '_blank';
+        anchor.rel = 'noopener';
+        anchor.hidden = true;
+        let timer;
+        input.addEventListener('input', () => {
+          clearTimeout(timer);
+          timer = setTimeout(() => saveLink(key, input.value.trim()), 600);
+        });
+        row.append(input, anchor);
+        linkFields.push({ key, input, anchor });
+      });
+      step.insertBefore(row, daysRow.nextSibling);
+    });
+
+    function renderLinks() {
+      linkFields.forEach(({ key, input, anchor }) => {
+        const url = links[key] || '';
+        if (document.activeElement !== input) input.value = url;
+        anchor.href = url || '#';
+        anchor.hidden = !url;
+      });
+    }
+    function saveLink(key, url) {
+      if (url) links[key] = url; else delete links[key];
+      localStorage.setItem(LINKS_KEY, JSON.stringify(links));
+      renderLinks();
+      fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: PAGE_ID, key, url }),
+      }).catch(() => { /* hors ligne ou file:// : la sauvegarde locale suffit */ });
+    }
+    renderLinks();
+    // Au chargement, la base fait foi si elle est joignable
+    fetch(`${API_URL}?page=${PAGE_ID}`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => {
+        if (d && d.reservations) {
+          links = { ...links, ...d.reservations };
+          localStorage.setItem(LINKS_KEY, JSON.stringify(links));
+          renderLinks();
+        }
+      })
+      .catch(() => { /* ignore */ });
 
     // Toggle affichage des étapes de trajet (les nuits restent comptées dans les dates)
     const TRAVEL_KEY = 'polynesie.bis.showTravelSteps';

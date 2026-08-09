@@ -1,0 +1,6 @@
+node_modules/
+.next/
+.env*.local
+# Fichiers copiés depuis la racine par `npm run sync` — la source de vérité reste ../*.html
+public/*.html
+public/style.css
