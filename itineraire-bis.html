@@ -627,6 +627,7 @@
         priceBInputs[i] ? (priceBInputs[i].value || '') : '',
         priceTInputs[i] ? (priceTInputs[i].value || '') : '',
       ])));
+      schedulePush();
     }
 
     // Restauration depuis localStorage (sauvegarde indépendante de itineraire.html)
@@ -741,6 +742,48 @@
         }
       })
       .catch(() => { /* ignore */ });
+
+    // --- Synchro de l'état (nuits + prix) avec /api/etat (Vercel Postgres) ---
+    // Le serveur fait foi au chargement ; ensuite chaque modification est poussée (debounce).
+    var stateReady = false;
+    var statePushTimer;
+    function schedulePush() {
+      if (!stateReady) return;
+      clearTimeout(statePushTimer);
+      statePushTimer = setTimeout(() => {
+        const data = {
+          v: STORAGE_KEY,
+          days: inputs.map(i => i ? (i.value || '') : ''),
+          prices: steps.map((s, i) => [
+            priceAInputs[i] ? (priceAInputs[i].value || '') : '',
+            priceBInputs[i] ? (priceBInputs[i].value || '') : '',
+            priceTInputs[i] ? (priceTInputs[i].value || '') : '',
+          ]),
+        };
+        fetch('/api/etat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ page: PAGE_ID, data }),
+        }).catch(() => { /* hors ligne ou file:// : la sauvegarde locale suffit */ });
+      }, 800);
+    }
+    fetch(`/api/etat?page=${PAGE_ID}`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => {
+        const data = d && d.data;
+        if (data && data.v === STORAGE_KEY) {
+          (data.days || []).forEach((v, i) => { if (inputs[i]) inputs[i].value = v; });
+          (data.prices || []).forEach((p, i) => {
+            if (!p) return;
+            if (priceAInputs[i]) priceAInputs[i].value = p[0] || '';
+            if (priceBInputs[i]) priceBInputs[i].value = p[1] || '';
+            if (priceTInputs[i]) priceTInputs[i].value = p[2] || '';
+          });
+          recompute();
+        }
+      })
+      .catch(() => { /* ignore */ })
+      .finally(() => { stateReady = true; });
 
     // Toggle affichage des étapes de trajet (les nuits restent comptées dans les dates)
     const TRAVEL_KEY = 'polynesie.bis.showTravelSteps';
